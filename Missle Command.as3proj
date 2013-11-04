@@ -4,10 +4,10 @@
   <output>
     <movie outputType="Application" />
     <movie input="" />
-    <movie path="MissleCommand.swf" />
+    <movie path="bin/MissleCommand.swf" />
     <movie fps="30" />
     <movie width="1024" />
-    <movie height="800" />
+    <movie height="720" />
     <movie version="10" />
     <movie minorVersion="3" />
     <movie platform="Flash Player" />

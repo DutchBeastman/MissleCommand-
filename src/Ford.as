@@ -12,7 +12,7 @@ package
 		{
 			addChild(ford);
 			ford.x = 200;
-			ford.y = 650;
+			ford.y = 550 - 100;
 			ford.z = -40;
 			
 			addEventListener(Event.ENTER_FRAME, loop)

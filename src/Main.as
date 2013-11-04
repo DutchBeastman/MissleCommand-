@@ -7,43 +7,51 @@ package
  import flash.display.StageDisplayState;
  import flash.events.Event;
  import flash.events.MouseEvent;
+ import flash.media.SoundTransform;
  import flash.utils.Timer;
  import flash.events.TimerEvent;
  import flash.events.TextEvent;
  import flash.text.TextField;
  import flash.text.TextFormat;
+ import flash.media.Sound;
  /**
   * ...
   * @author Fabian Verkuijlen
   */
  public class Main extends Sprite
 	{
-		
-	private var scoretext:TextField = new TextField;
-	private var scoreTimer:Timer;
-	private var score = new int;
-	private var fullscreen:Fullscreen = new Fullscreen();
-	private var textfont:TextFormat = new TextFormat;
+		[Embed(source = "../lib/FireSound.mp3")]
+		private var firesound						:Class;
+		[Embed(source = "../lib/Collision Hit.mp3")]
+		private var Collisionhit					:Class;
+		[Embed(source = "../lib/Background.mp3")]
+	private var Backgroundmusic						:Class;
+	private var scoretext							:TextField 		= new TextField;
+	private var scoreTimer							:Timer;
+	private var score 												= new int;
+	private var fullscreen							:Fullscreen 	= new Fullscreen();
+	private var textfont							:TextFormat 	= new TextFormat;
 	
 		//aanmaken van de game
 	public var random:Number;
-	public static var _allMeteooren:Array = [];
-	public static var _allBullets:Array = [];
-	public var spawnTimer:Timer;
-	public var cartimer:Timer;
-	public var tower1:Tower = new Tower();
-	public var tower2:Tower = new Tower();
-	public var tower3:Tower = new Tower();
-	public var shootingTowerX:Number;
-	public var shootingTowerY:Number;
-	public var BGScreen:Beginscreen = new Beginscreen();
+	public static var _allMeteooren					:Array 			= [];
+	public static var _allBullets					:Array 			= [];
+	public var spawnTimer							:Timer;
+	public var cartimer								:Timer;
+	public var endTimer   							:Timer;
+	public var tower1								:Tower 			= new Tower();
+	public var tower2								:Tower 			= new Tower();
+	public var tower3								:Tower 			= new Tower();
+	public var shootingTowerX						:Number;
+	public var shootingTowerY						:Number;
+	public var BGScreen								:Beginscreen 	= new Beginscreen();
 	public function Main():void
 	{
 		addEventListener(Event.ADDED_TO_STAGE, initGame);
 		
 		
 	}
-
+		
 	private function initGame(e:Event) : void 
 	{
 		BGScreen.addEventListener(Beginscreen.START, init)
@@ -77,6 +85,20 @@ package
 	private function init(e:Event):void
 	{
 		
+		removeChild(BGScreen);
+		removeChild(fullscreen);
+		fullscreen = null;
+		BGScreen = null;
+		
+		var backgroundmusic:Sound = new Backgroundmusic();
+		backgroundmusic.play(0,1,null);
+	
+		
+		addChild(scoretext);
+		scoretext.x = 10;
+		scoretext.y = 10;
+		
+		
 		addChild(tower1);
 		addChild(tower2);
 		addChild(tower3);
@@ -91,16 +113,40 @@ package
 		
 		stage.addEventListener(Event.ENTER_FRAME, loop);
 		stage.addEventListener(MouseEvent.CLICK, mouseClick);
-		cartimer = new Timer((Math.random() * 1000 * Math.random()) + 3000, 0);
+		endTimer = new Timer(1000);
+		endTimer.addEventListener(TimerEvent.TIMER, endingtimer);
+		endTimer.addEventListener(TimerEvent.TIMER_COMPLETE, endGame);
+		endTimer.start();
+		cartimer = new Timer((Math.random() * 1000 * Math.random()) * 3000 + 100 + (300*66 * Math.random()), 0);
 		cartimer.addEventListener(TimerEvent.TIMER, spawnCar);
 		cartimer.start();
-		spawnTimer = new Timer((Math.random() * 1000) + 2000, 0);
+		spawnTimer = new Timer((Math.random() * 1000) + 3000, 0);
 		spawnTimer.addEventListener(TimerEvent.TIMER, spawnMeteoor);
 		spawnTimer.start();
 		scoreTimer = new Timer( 200 , 0);
 		scoreTimer.addEventListener(TimerEvent.TIMER, TellScore);
 		scoreTimer.start();
 		
+		
+	}
+	
+	private function endingtimer(e:TimerEvent):void 
+	{
+		/*while(numChildren > 0)
+		{
+		  removeChildAt(0);
+		  
+		}*/// dit zou het einde moeten zijn maar dat is me niet gelukt en de highscore kreeg ik toch ook niet voor elkaar.
+		
+		
+	}
+	
+	private function endGame(e:TimerEvent):void 
+	{
+		/*while(stage.numChildren > 0)
+		{
+		  stage.removeChildAt(0);
+		}*/
 	}
 	
 		private function TellScore(e:Event) :void
@@ -108,6 +154,7 @@ package
 		score ++;
 		scoretext.defaultTextFormat = textfont;
 		textfont.size = 50;
+		
 		}
 	
 	private function spawnCar(e:TimerEvent):void 
@@ -122,10 +169,15 @@ package
 	//Kogel spawning.
 	private function mouseClick(e:MouseEvent):void 
 	{
+		
 		var newBullet : Bullet = new Bullet();
 		_allBullets.push(newBullet);
 		addChild(newBullet);
-
+		
+		var Firesound:Sound = new firesound();
+		Firesound.play();
+		
+		
 		random = Math.random();
 		if (random > 0.7)
 		{
@@ -161,7 +213,7 @@ package
 		var newMeteoor : SteenFactory = new SteenFactory();
 		_allMeteooren.push(newMeteoor);
 		newMeteoor.x = Math.random() * 1000;
-		newMeteoor.y =  50;
+		newMeteoor.y =  -50;
 		addChild(newMeteoor);
 		
 	}
@@ -169,7 +221,7 @@ package
 		{
 		scoretext.text = score;
 		
-			
+
 		var stenen : Steen;
 		var item : Bullet;
 		var k : int = _allMeteooren.length;
@@ -201,6 +253,9 @@ package
 			
 				if (_allBullets[i].hitTestObject(_allMeteooren[j]))
 				{
+					var collisionhit:Sound = new Collisionhit();
+					collisionhit.play();
+					score += 10;
 					removeChild(_allMeteooren[j])
 					_allMeteooren.splice(j, 1);
 					removeChild(_allBullets[i]);

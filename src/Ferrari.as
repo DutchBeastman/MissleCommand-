@@ -12,7 +12,7 @@ package
 		{
 			addChild(ferrari);
 			ferrari.x = 100;
-			ferrari.y = 650;
+			ferrari.y = 550;
 			ferrari.z = -40;
 			
 			addEventListener(Event.ENTER_FRAME, loop)

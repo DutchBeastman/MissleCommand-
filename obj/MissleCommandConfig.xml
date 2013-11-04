@@ -16,30 +16,30 @@
     </define>
     <define append="true">
       <name>CONFIG::timeStamp</name>
-      <value>'29-10-2013'</value>
+      <value>'4-11-2013'</value>
     </define>
     <verbose-stacktraces>true</verbose-stacktraces>
     <source-path append="true">
-      <path-element>D:\School\Portfolio\GAP\missle command\src</path-element>
+      <path-element>D:\School\Portfolio\GAP\missle command 1\src</path-element>
       <path-element>C:\Program Files (x86)\FlashDevelop\Library\AS3\classes</path-element>
     </source-path>
     <library-path append="true">
-      <path-element>D:\School\Portfolio\GAP\missle command\lib\bullet.swc</path-element>
-      <path-element>D:\School\Portfolio\GAP\missle command\lib\wholeCannon.swc</path-element>
-      <path-element>D:\School\Portfolio\GAP\missle command\lib\meteoor.swc</path-element>
-      <path-element>D:\School\Portfolio\GAP\missle command\lib\FerrariMC.swc</path-element>
-      <path-element>D:\School\Portfolio\GAP\missle command\lib\FordMC.swc</path-element>
-      <path-element>D:\School\Portfolio\GAP\missle command\lib\StartScreen.swc</path-element>
-      <path-element>D:\School\Portfolio\GAP\missle command\lib\Fullscreen.swc</path-element>
+      <path-element>D:\School\Portfolio\GAP\missle command 1\lib\bullet.swc</path-element>
+      <path-element>D:\School\Portfolio\GAP\missle command 1\lib\wholeCannon.swc</path-element>
+      <path-element>D:\School\Portfolio\GAP\missle command 1\lib\meteoor.swc</path-element>
+      <path-element>D:\School\Portfolio\GAP\missle command 1\lib\FerrariMC.swc</path-element>
+      <path-element>D:\School\Portfolio\GAP\missle command 1\lib\FordMC.swc</path-element>
+      <path-element>D:\School\Portfolio\GAP\missle command 1\lib\StartScreen.swc</path-element>
+      <path-element>D:\School\Portfolio\GAP\missle command 1\lib\Fullscreen.swc</path-element>
     </library-path>
   </compiler>
   <file-specs>
-    <path-element>D:\School\Portfolio\GAP\missle command\src\Main.as</path-element>
+    <path-element>D:\School\Portfolio\GAP\missle command 1\src\Main.as</path-element>
   </file-specs>
   <default-background-color>#FFFFFF</default-background-color>
   <default-frame-rate>30</default-frame-rate>
   <default-size>
     <width>1024</width>
-    <height>800</height>
+    <height>720</height>
   </default-size>
 </flex-config>
